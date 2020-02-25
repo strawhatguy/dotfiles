@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+SSH_AGENT_ENV=$HOME/.ssh/ssh-agent-env
+exec > "$SSH_AGENT_ENV"
+exec ssh-agent -D
