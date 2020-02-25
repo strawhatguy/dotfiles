@@ -9,6 +9,8 @@ PROMPT="${NEWLINE}%B%F{51}%~${NEWLINE}%F{green}➜ %F{red}%? %F{yellow}%D{%H:%M:
 
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 export ORIG_PATH=$PATH
+[ -f ~/service ] && export SVDIR=~/service
+[ -f ~/.ssh/ssh-agent-env ] && source ~/.ssh/ssh-agent-env
 
 eval "$(direnv hook zsh)"
 
