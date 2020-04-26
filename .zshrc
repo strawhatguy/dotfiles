@@ -15,7 +15,7 @@ NEWLINE=$'\n'
 # 256 term color: https://jonasjacek.github.io/colors/
 PROMPT="${NEWLINE}%B%F{51}%~${NEWLINE}%F{green}➜ %F{red}%? %F{yellow}%D{%H:%M:%S} %F{13}[%j]> %b%F{grey}"
 
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.cargo/bin:$PATH"
 export ORIG_PATH=$PATH
 [ -f ~/service ] && export SVDIR=~/service
 [ -f ~/.ssh/ssh-agent-env ] && source ~/.ssh/ssh-agent-env
