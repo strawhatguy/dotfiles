@@ -45,3 +45,6 @@ function load_java() {
 
 export LSCOLORS=Gxfxbxdxcxegedabagacad
 alias ls='ls -G'
+
+# uniquify PATH which is tied to path
+typeset -U path
