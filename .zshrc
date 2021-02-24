@@ -41,7 +41,8 @@ export GRAALVM_HOME="/Library/Java/JavaVirtualMachines/graalvm/Contents/Home/"
 export JAVA_HOME=$(/usr/libexec/java_home)
 export LSCOLORS=Gxfxbxdxcxegedabagacad
 alias ls='ls -G'
-alias dcomp=docker-compose
+alias dcomp='docker-compose'
+alias filesopen='lsof | awk '{print $1 "-" $2}' | sort | uniq -c | sort -nr | head -10'
 
 pathprepend ~/.cargo/bin      PATH
 pathprepend ~/go/bin          PATH
