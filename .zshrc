@@ -7,16 +7,16 @@ function reload() {
 }
 
 # load brew installed completions
+export FPATH
 if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+    pathprepend $(brew --prefix)/share/zsh/site-functions FPATH
     autoload -Uz compinit
     compinit
 fi
 
 # from: https://unix.stackexchange.com/questions/258656/how-can-i-delete-to-a-slash-or-a-word-in-zsh
 backward-kill-dir () {
-    local WORDCHARS=${WORDCHARS/\/}
-    zle backward-kill-word
+    WORDCHARS='' zle backward-kill-word
 }
 zle -N backward-kill-dir
 bindkey '^[^?' backward-kill-dir
