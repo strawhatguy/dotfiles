@@ -6,6 +6,13 @@ function reload() {
     source ~/.zshrc
 }
 
+# load brew installed completions
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+    autoload -Uz compinit
+    compinit
+fi
+
 # from: https://unix.stackexchange.com/questions/258656/how-can-i-delete-to-a-slash-or-a-word-in-zsh
 backward-kill-dir () {
     local WORDCHARS=${WORDCHARS/\/}
@@ -30,11 +37,11 @@ export NVM_DIR=~/.nvm
 # [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 export CARP_DIR=~/Projects/Carp/
-
 export GRAALVM_HOME="/Library/Java/JavaVirtualMachines/graalvm/Contents/Home/"
 export JAVA_HOME=$(/usr/libexec/java_home)
 export LSCOLORS=Gxfxbxdxcxegedabagacad
 alias ls='ls -G'
+alias dcomp=docker-compose
 
 pathprepend ~/.cargo/bin      PATH
 pathprepend ~/go/bin          PATH
@@ -46,3 +53,6 @@ pathprepend ~/bin             PATH
 typeset -U path
 
 export PATH
+
+# for emacs vterm library
+[ -f ~/.emacs-vterm-zsh ] && source ~/.emacs-vterm-zsh
