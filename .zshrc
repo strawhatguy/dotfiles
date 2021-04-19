@@ -37,8 +37,7 @@ export NVM_DIR=~/.nvm
 # [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 export CARP_DIR=~/Projects/Carp/
-export GRAALVM_HOME="/Library/Java/JavaVirtualMachines/graalvm/Contents/Home/"
-export JAVA_HOME=$(/usr/libexec/java_home)
+
 export LSCOLORS=Gxfxbxdxcxegedabagacad
 alias ls='ls -G'
 alias dcomp='docker-compose'
@@ -49,6 +48,9 @@ pathprepend ~/go/bin          PATH
 pathprepend /usr/local/go/bin PATH
 pathprepend ~/.local/bin      PATH
 pathprepend ~/bin             PATH
+
+# multiple java environment management with jenv
+[[ ! -v JENV_LOADED ]] && which jenv > /dev/null && eval "$(jenv init -)"
 
 # uniquify PATH which is tied to path
 typeset -U path
