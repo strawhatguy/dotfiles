@@ -43,12 +43,11 @@
   :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.309"}}
         :main-opts ["-m" "clj-new.create"]}
 
-  ;; load the "dev" folder of a project, and add the ability to load new deps in a repl
+  ;; add the ability to load new deps in a repl
   ;; example:
   ;; (require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
   ;; (add-libs '{jedi-time/jedi-time {:mvn/version "0.2.1"}})
-  :dev {:extra-paths ["dev"]
-        :extra-deps {org.clojure/tools.deps.alpha ; add-lib3 branch
-                     {:git/url "https://github.com/clojure/tools.deps.alpha"
-                      :sha "241cd24c35ba770aea4773ea161d45276e5d3a73"}}
-        :main-opts ["-e" "(->>(Thread/currentThread)(.getContextClassLoader)(clojure.lang.DynamicClassLoader.)(.setContextClassLoader,(Thread/currentThread)))"]}}}
+  :add-lib {:extra-deps {org.clojure/tools.deps.alpha ; add-lib3 branch
+                         {:git/url "https://github.com/clojure/tools.deps.alpha"
+                          :sha "241cd24c35ba770aea4773ea161d45276e5d3a73"}}
+            :main-opts ["-e" "(->>(Thread/currentThread)(.getContextClassLoader)(clojure.lang.DynamicClassLoader.)(.setContextClassLoader,(Thread/currentThread)))"]}}}
