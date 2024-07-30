@@ -41,8 +41,10 @@ export CARP_DIR=~/Projects/Carp/
 export LSCOLORS=Gxfxbxdxcxegedabagacad
 alias ls='ls -G'
 alias dcomp='docker-compose'
-alias filesopen='lsof | awk '{print $1 "-" $2}' | sort | uniq -c | sort -nr | head -10'
+alias filesopen="lsof | awk '{print \$1 \"-\" \$2}' | sort | uniq -c | sort -nr | head -10"
+alias gitprune='git branch --merged main | grep -v "^[ *]*main$" | xargs -d'\n' git branch -d'
 
+pathprepend /usr/local/opt/openjdk/bin PATH
 pathprepend ~/.cargo/bin      PATH
 pathprepend ~/go/bin          PATH
 pathprepend /usr/local/go/bin PATH
@@ -51,6 +53,11 @@ pathprepend ~/bin             PATH
 
 # multiple java environment management with jenv
 [[ ! -v JENV_LOADED ]] && which jenv > /dev/null && eval "$(jenv init -)"
+
+# python environment
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+which pyenv > /dev/null && eval "$(pyenv init -)"
 
 # uniquify PATH which is tied to path
 typeset -U path
