@@ -42,7 +42,8 @@ export LSCOLORS=Gxfxbxdxcxegedabagacad
 alias ls='ls -G'
 alias dcomp='docker-compose'
 alias filesopen="lsof | awk '{print \$1 \"-\" \$2}' | sort | uniq -c | sort -nr | head -10"
-alias gitprune='git branch --merged main | grep -v "^[ *]*main$" | xargs -d'\n' git branch -d'
+alias gitprune="git branch --merged main | grep -v \"^[ *]*main$\" | xargs git branch -d"
+alias gitprunable="git branch --merged main | grep -v \"^[ *]*main$\""
 
 pathprepend /usr/local/opt/openjdk/bin PATH
 pathprepend ~/.cargo/bin      PATH
