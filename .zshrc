@@ -68,5 +68,8 @@ export PATH
 # for emacs vterm library
 [ -f ~/.emacs-vterm-zsh ] && source ~/.emacs-vterm-zsh
 
+# make emacs the editor
+export EDITOR="emacsclient -ar"
+
 # local to this machine additions
 [ -f ~/.local.zsh ] && source ~/.local.zsh
