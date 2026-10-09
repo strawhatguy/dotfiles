@@ -23,7 +23,8 @@ bindkey '^[^?' backward-kill-dir
 
 NEWLINE=$'\n'
 # 256 term color: https://jonasjacek.github.io/colors/
-PROMPT="${NEWLINE}%B%F{51}%~${NEWLINE}%F{green}➜ %F{red}%? %F{yellow}%D{%H:%M:%S} %F{13}[%j]> %b%F{grey}"
+# PROMPT="${NEWLINE}%B%F{51}%~${NEWLINE}%F{green}➜ %F{red}%? %F{yellow}%D{%H:%M:%S} %F{13}[%j]> %b%F{grey}"
+PROMPT="%(?.%F{yellow}.%F{red})%D{%H:%M:%S}> %b%F{grey}"
 
 [ -f ~/service ] && export SVDIR=~/service
 [ -f ~/.ssh/ssh-agent-env ] && source ~/.ssh/ssh-agent-env
@@ -33,10 +34,8 @@ eval "$(direnv hook zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export NVM_DIR=~/.nvm
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && [ -z "$NVM_BIN" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-# [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-
-export CARP_DIR=~/Projects/Carp/
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+#  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export LSCOLORS=Gxfxbxdxcxegedabagacad
 alias ls='ls -G'
@@ -45,15 +44,10 @@ alias filesopen="lsof | awk '{print \$1 \"-\" \$2}' | sort | uniq -c | sort -nr 
 alias gitprune="git branch --merged main | grep -v \"^[ *]*main$\" | xargs git branch -d"
 alias gitprunable="git branch --merged main | grep -v \"^[ *]*main$\""
 
-pathprepend /usr/local/opt/openjdk/bin PATH
 pathprepend ~/.cargo/bin      PATH
 pathprepend ~/go/bin          PATH
 pathprepend /usr/local/go/bin PATH
 pathprepend ~/.local/bin      PATH
-pathprepend ~/bin             PATH
-
-# multiple java environment management with jenv
-[[ ! -v JENV_LOADED ]] && which jenv > /dev/null && eval "$(jenv init -)"
 
 # python environment
 export PYENV_ROOT="$HOME/.pyenv"
