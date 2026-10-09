@@ -1,8 +1,6 @@
 [user]
 	email = mjcurry@gmail.com
 	name = Matthew Curry
-[url "git@github.com:"]
-        insteadOf = https://github.com/
 [pull]
 	rebase = true
 [commit]
