@@ -11,7 +11,7 @@ export FPATH
 if type brew &>/dev/null; then
     pathprepend $(brew --prefix)/share/zsh/site-functions FPATH
     autoload -Uz compinit
-    compinit
+    compinit -u
 fi
 
 # from: https://unix.stackexchange.com/questions/258656/how-can-i-delete-to-a-slash-or-a-word-in-zsh
@@ -66,4 +66,4 @@ export PATH
 export EDITOR="emacsclient -ar"
 
 # local to this machine additions
-[ -f ~/.local.zsh ] && source ~/.local.zsh
+if [ -f ~/.local.zsh ]; then source ~/.local.zsh; fi
