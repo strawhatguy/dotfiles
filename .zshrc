@@ -66,7 +66,12 @@ export PATH
 [ -f ~/.emacs-vterm-zsh ] && source ~/.emacs-vterm-zsh
 
 # make emacs the editor
-export EDITOR="emacsclient -ar"
+# empty ALTERNATE_EDITOR starts a daemon (as me, with my config) if none is running;
+# kept out of EDITOR so it has no quotes and splits cleanly (zsh: ${=EDITOR} file)
+# -t since brew's emacs has no GUI
+export ALTERNATE_EDITOR=""
+export EDITOR="emacsclient -t"
+alias e="$EDITOR"
 
 # local to this machine additions
 if [ -f ~/.local.zsh ]; then source ~/.local.zsh; fi
