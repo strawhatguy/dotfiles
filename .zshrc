@@ -1,6 +1,6 @@
 
-# cool PATH funcs
-. ~/.shell-funcs
+# uniquify PATH/FPATH (tied to path/fpath); prepending an existing entry moves it to the front
+typeset -U path fpath
 
 function reload() {
     source ~/.zshrc
@@ -9,7 +9,8 @@ function reload() {
 # load brew installed completions
 export FPATH
 if type brew &>/dev/null; then
-    pathprepend $(brew --prefix)/share/zsh/site-functions FPATH
+    # hardcoded instead of $(brew --prefix), which costs ~45ms per shell
+    fpath=(${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh/site-functions $fpath)
     autoload -Uz compinit
     compinit -u
 fi
@@ -34,7 +35,9 @@ eval "$(direnv hook zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export NVM_DIR=~/.nvm
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# --no-use skips resolving the `lts/*` default alias (~350ms); put the newest installed node on PATH instead
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" --no-use  # This loads nvm
+path=($NVM_DIR/versions/node/*/bin(nOn[1]N) $path)
 #  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export LSCOLORS=Gxfxbxdxcxegedabagacad
@@ -44,18 +47,13 @@ alias filesopen="lsof | awk '{print \$1 \"-\" \$2}' | sort | uniq -c | sort -nr 
 alias gitprune="git branch --merged main | grep -v \"^[ *]*main$\" | xargs git branch -d"
 alias gitprunable="git branch --merged main | grep -v \"^[ *]*main$\""
 
-pathprepend ~/.cargo/bin      PATH
-pathprepend ~/go/bin          PATH
-pathprepend /usr/local/go/bin PATH
-pathprepend ~/.local/bin      PATH
+# native zsh instead of pathprepend, which forks env|sed (~14ms per call)
+path=(~/.local/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin $path)
 
 # python environment
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 which pyenv > /dev/null && eval "$(pyenv init -)"
-
-# uniquify PATH which is tied to path
-typeset -U path
 
 export PATH
 
