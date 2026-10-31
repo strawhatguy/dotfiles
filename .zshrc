@@ -27,6 +27,11 @@ NEWLINE=$'\n'
 # PROMPT="${NEWLINE}%B%F{51}%~${NEWLINE}%F{green}➜ %F{red}%? %F{yellow}%D{%H:%M:%S} %F{13}[%j]> %b%F{grey}"
 PROMPT="%(?.%F{yellow}.%F{red})%D{%H:%M:%S}> %b%F{grey}"
 
+# clear any title a remote host set (e.g. curry@bastion) when we're back at a local prompt
+reset_terminal_title() { print -n '\e]0;\a' }
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd reset_terminal_title
+
 [ -f ~/service ] && export SVDIR=~/service
 [ -f ~/.ssh/ssh-agent-env ] && source ~/.ssh/ssh-agent-env
 
