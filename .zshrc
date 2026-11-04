@@ -35,7 +35,9 @@ add-zsh-hook precmd reset_terminal_title
 [ -f ~/service ] && export SVDIR=~/service
 [ -f ~/.ssh/ssh-agent-env ] && source ~/.ssh/ssh-agent-env
 
-eval "$(direnv hook zsh)"
+if which direnv; then
+    eval "$(direnv hook zsh)"
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
